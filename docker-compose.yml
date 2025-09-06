@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  frontend:
+    build:
+      context: ./frontend   # path to frontend project
+      dockerfile: Dockerfile
+    container_name: ecommerce-frontend
+    ports:
+      - "8082:8080"
+    depends_on:
+      - backend
+    networks:
+      - ecommerce-net
+
+  backend:
+    build:
+      context: ./backend   # path to backend project
+      dockerfile: Dockerfile
+    container_name: ecommerce-backend
+    ports:
+      - "8083:8080"
+    networks:
+      - ecommerce-net
+
+networks:
+  ecommerce-net:
+    driver: bridge
